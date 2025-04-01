@@ -1,22 +1,9 @@
 
 # Automatic Number Plate Recognition (ANPR)
 
-This project implements a **real-time Automatic Number Plate Recognition (ANPR)** system using Python, Flask, machine learning (YOLO), and OCR. It supports video stream processing and includes super-resolution for enhancing license plate images.
+This project implements a real-time Automatic Number Plate Recognition (ANPR) system using Python, Flask, machine learning (YOLO), and OCR. It supports video stream processing and includes super-resolution for enhancing license plate images.
 
----
-
-## 🧠 Key Features
-
-- **Real-time License Plate Detection** using YOLOv8
-- **Optical Character Recognition (OCR)** via EasyOCR
-- **Super-resolution enhancement** with RRDBNet (Residual-in-Residual Dense Blocks)
-- **Custom web interface** built with Flask and Bootstrap
-- **Live video stream processing** from webcam or video file
-- **Adjustable detection threshold** via a user-friendly slider in the browser
-
----
-
-## 📂 Project Structure
+## Project Structure
 
 - `app.py` — Flask server to handle video stream and routes
 - `videoStream.py` — Contains the detection, OCR and super-resolution logic
@@ -26,7 +13,7 @@ This project implements a **real-time Automatic Number Plate Recognition (ANPR)*
 
 ---
 
-## 🛠️ Requirements
+## Requirements
 
 - Python 3.8+
 - Flask
@@ -52,7 +39,7 @@ pip install flask opencv-python torch torchvision easyocr ultralytics matplotlib
 
 ---
 
-## 🚀 How to Run
+## How to Run
 
 1. Clone the repository:
 ```bash
@@ -74,10 +61,9 @@ python app.py
 ```
 http://localhost:5000
 ```
-
 ---
 
-## 🧪 Example Workflow
+## Example Workflow
 
 - The system processes each video frame using YOLO to detect plates.
 - Detected regions are enhanced using super-resolution (RRDBNet).
@@ -86,15 +72,14 @@ http://localhost:5000
 
 ---
 
-## 📄 License
+##  License
 
 MIT License
 
 ---
 
-## 👨‍💻 Author
-
-**Nico Helle**  
+##  Author
+**Nico Helle, Tim Herold, Jan-Patrick Kirchner, Finann Tesfalasie**  
 Based on a university project for real-time license plate detection and OCR.
 
 ---
