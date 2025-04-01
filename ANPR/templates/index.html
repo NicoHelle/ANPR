@@ -1,0 +1,122 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>Kennzeichenerkennung</title>
+
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+    </head>
+
+
+    <body>
+
+        <div class="container">
+            <h1 class="text-center">Kennzeichenerkennung</h1>
+            <div  class="row">
+                <div  class="col-md-3"><h2>Sidebar Links</h2></div>
+                <div  class="col-md-6 text-center">
+                    <div>
+                        <img src="{{ url_for('video_feed') }}" style="border: 2px solid grey;" class="img-fluid mx-auto">
+                    </div>
+                    
+                </div>
+                <div  class="col-md-3"><h2><p>Kennzeichen: <span id="kennzeichen"></span></h2></div>
+            </div>
+
+            <div>
+                <span><h4 id="speedDisplay">Time: </h4></span>
+            </div>
+        
+            <div class="slidecontainer" style="align: center">
+                <input type="range" class="form-range" min="0" max="1" step="0.05" id="thresholdSlider" value="0.5">
+                <p>Threshold: <span id="thresholdValue"></span></p>
+            </div>
+        
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        </div>
+
+
+
+
+    </body>
+
+    <script>
+
+        var seconds;
+            const interval = setInterval(function() {
+            // method to be executed;
+            seconds = getModelPerformance();
+        }, 1000);
+
+        var slider = document.getElementById("thresholdSlider");
+        var output = document.getElementById("thresholdValue");
+        output.innerHTML = slider.value;
+
+        slider.oninput = function() {
+            output.innerHTML = this.value;
+        }
+
+
+        
+
+
+
+        jQuery(document).ready(function($){
+            
+            //$("#thresholdSlider").val(0.5)
+            //output.innerHTML =0.5;
+            var threshold_value;
+
+
+            
+
+
+            
+            $("#thresholdSlider").on("change", function(){
+                threshold_value = $(this).val();
+                $.ajax({
+                    type : 'POST',
+                    url : "{{url_for('set_threshold')}}",
+                    contentType: 'application/json;charset=UTF-8',
+                    data : JSON.stringify({'data': threshold_value})
+                });
+            });    
+        });
+
+
+
+
+
+
+        function getModelPerformance(){
+            $.ajax({
+                type : 'GET',
+                url : "{{url_for('get_performance')}}",
+                contentType: 'application/json;charset=UTF-8',
+                success: function(response){
+                    s = response['speed'].toFixed(2);
+                    $('#speedDisplay').text('Time: ' + s + ' sec (' + (1/s).toFixed(2) + ' fps)');
+                    return s;
+                }
+            });
+
+        };
+
+        
+
+
+       
+
+
+
+
+    </script>
+</html>
